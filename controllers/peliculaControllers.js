@@ -17,7 +17,7 @@ function getPelicula(req, res){
 			res.status(200).send({pelicula})	
 	})
 }
-
+//comentario
 function postPelicula(req, res){
 	console.log('Post /api/peliculas')
 	let peliculas= new Peliculas()
