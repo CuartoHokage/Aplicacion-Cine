@@ -1,7 +1,7 @@
 'use strict'
 const mongoose= require('mongoose')
 const Schema= mongoose.Schema
-
+//comentario
 const PeliculaSchema= Schema({
 	name: String,
 	picture: String,
