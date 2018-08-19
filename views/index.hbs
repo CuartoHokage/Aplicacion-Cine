@@ -1,41 +1,8 @@
 
-	<a href="http://google.com" target="_blank">Google</a>
-	<a href="#clase">Subir</a>
-		<script>
-			$(document).ready(function(){
-	            var prueba
-	            $("#btnconsultar").click(function(){
-	                var varid=$("#txtcedula").val();
-	               $.ajax({
-	                   type:"GET",
-	                   //url:"https://proyectointegrador.herokuapp.com/book",
-	                   url:"/api/pelicula",
-	                   dataType:"json",
-	                   contentType:"text/plain"
-	               }).done(function(msg){
-	                   var htmlpuro='<table border=1 class="tablaRegistros"><tr class="comlumaRegistros"><td>Id</td><td>Nombre del marco</td><td>Descripcion</td><td>Tipo de marco (0 pago - 1 gratis)</td><td>Precio</td>  </tr>'
-	                   for (var dato in msg)
-	                   {
-	                        htmlpuro+='<tr  class="comlumaRegistros2">'
-	                           htmlpuro+='<td>'+ msg[dato]._id+'</td>'
-	                           htmlpuro+='<td>'+ msg[dato].name+'</td>'
-	                           htmlpuro+='<td>'+ msg[dato].picture+'</td>'
-	                           htmlpuro+='<td>'+ msg[dato].censura+'</td>'
-	                           htmlpuro+='<td>'+ msg[dato].descripcion+'</td>'
-	                           htmlpuro+='<td>'+ msg[dato].fechaEstreno+'</td>'
-	                           htmlpuro+='<td>'+ msg[dato].fechaFinal+'</td>'
-	                           htmlpuro+='<td>'+ msg[dato].duracion+'</td>'
-	                           htmlpuro+='<td>'+ msg[dato].tiempoCartelera+'</td>'
-	                        htmlpuro+='</tr>'
-	                   }
-	                   htmlpuro+='</table>'
-	                    $("#contenido").html(htmlpuro)
-	               });
-	            });
-            });
-		</script>
-		<div id="contenido"></div>
-		<input type="button" id="btnconsultar" value="presioname">
+<input type="button" id="btnconsultar" value="presioname">
+<div id="contenido" class="table-responsive">
+</div>
+
 <!-- 
 	<br>
 	<br>
@@ -46,4 +13,4 @@
 	<br>
 	<div class="embed-responsive embed-responsive-16by9">
 		<iframe class="embed-responsive-item"	src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.2637994747347!2d-80.72171808525377!3d-0.9552675993031443!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x902be6b37c59137b%3A0x18eb4843f93ef8b3!2sCalle+9+de+Octubre%2C+Manta!5e0!3m2!1ses!2sec!4v1502765916089" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe> -->
-	<!-- </div> -->
+<!-- </div> -->
