@@ -23,4 +23,7 @@ app.use('/api', api)
 app.get('/', (req, res)=>{
 	res.render('index')
 })
+app.get('/agregarPelicula', (req, res)=>{
+	res.render('agregarPeliculas')
+})
 module.exports=app
