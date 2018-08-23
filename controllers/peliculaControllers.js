@@ -10,7 +10,7 @@ function getPeliculas(req, res){
 }
 
 function getPelicula(req, res){
-	let peliculaID= req.params.peliculaID
+	let peliculaID =req.params.peliculaID
 	Peliculas.findById(peliculaID, (err, pelicula)=>{
 		if (err) return res.status(500).send({message: `Error al realizar la petición ${err}`})
 			if (!pelicula) return res.status(404).send({message: 'Película no existe'})
@@ -37,7 +37,16 @@ function postPelicula(req, res){
 }
 
 function updatePelicula(req, res){
+	let peliculaID= req.params.peliculaID
+	let update= new Peliculas(req.body)
+	console.log(update)
+	update._id = peliculaID 
 
+	Peliculas.findByIdAndUpdate(peliculaID, update, {new: true}, (err, peliculaUpdate) =>{
+		if(err) return res.status(500).send({message: `Error al actualizar película ${err}`})
+		if(!peliculaUpdate) return res.status(500).send({message:'No retorno película actual'})
+		return res.status(200).send({peliculaUpdate })
+	})
 }
 
 function deletePelicula(req, res){

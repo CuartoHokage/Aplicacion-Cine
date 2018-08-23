@@ -7,7 +7,7 @@ const peliculaControllers= require('../controllers/peliculaControllers')
 const userControllers= require('../controllers/userControllers')
 //Cruds para peliculas
 api.get('/pelicula', peliculaControllers.getPeliculas)
-api.get('pelicula/:peliculaID', peliculaControllers.getPelicula)
+api.get('/pelicula/:peliculaID', peliculaControllers.getPelicula)
 api.post('/pelicula', peliculaControllers.postPelicula)
 api.put('/pelicula/:peliculaID', peliculaControllers.updatePelicula)
 api.delete('/pelicula/:peliculaID', peliculaControllers.deletePelicula)

@@ -22,7 +22,8 @@ $(document).ready(function () {
         }).done(function (msg) {
             //este for entra al objeto peliculas del json "msg" "i" quedara en posicion u objeto 0
             for (let i in msg) {
-                //el objeto peliculas del json es un array ayi recorreremos el array con j
+                //el objeto peliculas del json es un array ahi recorreremos el array con j y sus propiedades
+                // de cada j
                 for (let j in msg[i]) {
                     // console.log(msg[i][j])
                     htmlpuro += '<tr>'
