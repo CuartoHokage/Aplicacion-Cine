@@ -44,7 +44,7 @@ $(document).ready(function () {
                     
                 }
             }
-            
+            // gggf
             htmlpuro += '</tbody></table>';
             $("#contenido").html(htmlpuro)
             $(".btn-outline-danger").click(function(){
