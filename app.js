@@ -4,6 +4,7 @@ const express = require ('express');
 const bodyParser= require('body-parser')
 const app= express()
 const hbs= require('express-handlebars')
+const formidable=require('express-form-data')
 var path = require('path');
 app.use(bodyParser.urlencoded({extended: false}))
 app.use(bodyParser.json())
@@ -26,4 +27,5 @@ app.get('/', (req, res)=>{
 app.get('/agregarPelicula', (req, res)=>{
 	res.render('agregarPeliculas')
 })
+app.use(formidable.parse({keepExtensions:true}));
 module.exports=app

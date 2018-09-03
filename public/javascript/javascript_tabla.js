@@ -1,8 +1,7 @@
 $(document).ready(function () {
-
     $('#btnconsultar').click(function () {
-        var htmlpuro = '<table class="table table-striped"><thead>'
-        htmlpuro += '<tr>'
+        var htmlpuro = '<table class="table table-bordered" id="tabla_productos"><thead>'
+        htmlpuro += '<tr  class="table-info">'
         htmlpuro += '<th>ID</th>'
         htmlpuro += '<th>Título</th>'
         htmlpuro += '<th>Imagen</th>'
@@ -12,6 +11,7 @@ $(document).ready(function () {
         htmlpuro += '<th>Fin de cartelera </th>'
         htmlpuro += '<th>Duración</th>'
         htmlpuro += '<th>Tiempo en Cartelera</th>'
+        htmlpuro += '<th>Acciones</th>'
         htmlpuro += '</tr></thead><tbody>'
         //var varid=$("#txtcedula").val();
         $.ajax({
@@ -27,7 +27,7 @@ $(document).ready(function () {
                 for (let j in msg[i]) {
                     // console.log(msg[i][j])
                     htmlpuro += '<tr>'
-                    htmlpuro += '<td>' + msg[i][j]._id + '</td>'
+                    htmlpuro += '<td id="id_producto">' + msg[i][j]._id + '</td>'
                     htmlpuro += '<td>' + msg[i][j].name + '</td>'
                     htmlpuro += '<td>' + msg[i][j].picture + '</td>'
                     htmlpuro += '<td>' + msg[i][j].censura + '</td>'
@@ -36,11 +36,33 @@ $(document).ready(function () {
                     htmlpuro += '<td>' + msg[i][j].fechaFinal + '</td>'
                     htmlpuro += '<td>' + msg[i][j].duracion + '</td>'
                     htmlpuro += '<td>' + msg[i][j].tiempoCartelera + '</td>'
+                htmlpuro += '<td>\
+                                <button class="btn btn-outline-danger" id="btn-eliminar"><span class="oi oi-trash" aria-hidden="true" title="Eliminar" "></span></button>\
+                                <button class="btn btn-outline-success"><span class="oi oi-pencil" title="Modificar" aria-hidden="true"></span></button>\
+							</td>'
                     htmlpuro += '</tr>'
+                    
                 }
             }
+            
             htmlpuro += '</tbody></table>';
             $("#contenido").html(htmlpuro)
+            $(".btn-outline-danger").click(function(){
+                var esteBoton= $(this);
+                var id = esteBoton.parent().parent().find("#id_producto").text();
+                var confirmar= confirm('Desea eliminar película');
+                if(confirmar){
+                    $.ajax({
+                        type:"DELETE",
+                        url:"/api/pelicula/"+id,
+                        dataType:"text",
+                        contentType:"application/json" 
+                    }).done(function(msg){
+                        //alert(msg);
+                        esteBoton.parent().parent().remove();
+                    });
+                }
+             }); 
         });
     });
 }); 

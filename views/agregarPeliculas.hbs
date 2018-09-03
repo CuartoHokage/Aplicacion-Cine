@@ -1,4 +1,4 @@
-<form action="/api/pelicula" method="post">
+<form action="/api/pelicula" method="post" enctype="multipart/form-data">
   <div class="form-group">
     <label for="name">Título</label>
     <input type="text" class="form-control" name="name" id="name" placeholder="Titulo">
@@ -39,7 +39,7 @@
   </div>
   <div class="form-group">
     <label for="picture">Imagen de la Película</label>
-    <input type="file" class="form-control-file" name="picture" id="file_url">
+    <input type="file" class="form-control-file" name="picture" id="picture">
   </div>
   <button type="submit" class="btn btn-primary">Guardar Película</button>
 </form>
