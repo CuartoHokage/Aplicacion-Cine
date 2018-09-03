@@ -28,7 +28,7 @@ $(document).ready(function () {
                     // console.log(msg[i][j])
                     htmlpuro += '<tr>'
                     htmlpuro += '<td id="id_producto">' + msg[i][j]._id + '</td>'
-                    htmlpuro += '<td>' + msg[i][j].name + '</td>'
+                    htmlpuro += '<td id="name">' + msg[i][j].name + '</td>'
                     htmlpuro += '<td>' + msg[i][j].picture + '</td>'
                     htmlpuro += '<td>' + msg[i][j].censura + '</td>'
                     htmlpuro += '<td>' + msg[i][j].descripcion + '</td>'
@@ -37,7 +37,7 @@ $(document).ready(function () {
                     htmlpuro += '<td>' + msg[i][j].duracion + '</td>'
                     htmlpuro += '<td>' + msg[i][j].tiempoCartelera + '</td>'
                 htmlpuro += '<td>\
-                                <button class="btn btn-outline-danger" id="btn-eliminar"><span class="oi oi-trash" aria-hidden="true" title="Eliminar" "></span></button>\
+                                <button class="btn btn-outline-danger" data-toggle="modal" data-target="#exampleModal" id="btn-eliminar"><span class="oi oi-trash" aria-hidden="true" title="Eliminar" "></span></button>\
                                 <button class="btn btn-outline-success"><span class="oi oi-pencil" title="Modificar" aria-hidden="true"></span></button>\
 							</td>'
                     htmlpuro += '</tr>'
@@ -50,9 +50,20 @@ $(document).ready(function () {
             $(".btn-outline-danger").click(function(){
                 var esteBoton= $(this);
                 var id = esteBoton.parent().parent().find("#id_producto").text();
-                var confirmar= confirm('Desea eliminar película');
-                if(confirmar){
-                    $.ajax({
+                var name=esteBoton.parent().parent().find("#name").text();
+                swal({
+                    title: "¿Deseas eliminar la película?",
+                    text: "Eliminaras la película \""+name+"\" ",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                  })
+                  .then((willDelete) => {
+                    if (willDelete) {
+                      swal("La película a sido eliminada correctamente", {
+                        icon: "success",
+                      });
+                      $.ajax({
                         type:"DELETE",
                         url:"/api/pelicula/"+id,
                         dataType:"text",
@@ -61,7 +72,13 @@ $(document).ready(function () {
                         //alert(msg);
                         esteBoton.parent().parent().remove();
                     });
-                }
+                    } else {
+                      swal("Ok no eliminaremos nada.");
+                    }
+                  });
+                
+                    
+                
              }); 
         });
     });
