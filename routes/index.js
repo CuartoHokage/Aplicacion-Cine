@@ -11,6 +11,9 @@ api.get('/pelicula/:peliculaID', peliculaControllers.getPelicula)
 api.post('/pelicula', peliculaControllers.postPelicula)
 api.put('/pelicula/:peliculaID', peliculaControllers.updatePelicula)
 api.delete('/pelicula/:peliculaID', peliculaControllers.deletePelicula)
+api.get('/video',(req, res)=>{
+	res.render('video')
+})
 //Cruds para usuarios
 /*api.post('/signup', userControllers.signup)
 api.post('/signin', userControllers.signin)
