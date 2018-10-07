@@ -22,7 +22,7 @@ function getPelicula(req, res){
 function postPelicula(req, res){
 	console.log('Post /api/peliculas')
 		var file_path= req.files.picture.path;
-		res.status(500).send({error: req.files})
+		console.log(req.files)
 		console.log(file_path)
 		//separar toda la ruta para obtener solo el nombre del fichero
 		var file_split= file_path.split('\\');
