@@ -1,6 +1,7 @@
 'use strict'
-const Peliculas= require ('../modelos/peliculas')
-const multer = require('multer');
+const fs= require('fs');
+const path= require('path');
+const Peliculas= require ('../modelos/peliculas');
 function getPeliculas(req, res){
 	Peliculas.find({}, (err, peliculas)=>{
 		if (err) return res.status(500).send({message: `Error al realizar la petición ${err}`})
@@ -20,24 +21,20 @@ function getPelicula(req, res){
 
 function postPelicula(req, res){
 	console.log('Post /api/peliculas')
-	let peliculas= new Peliculas()
-	//-----//
-	var storage = multer.diskStorage({
-        destination: function (req, file, cb) {cb(null, 'public/imagenes/peliculas')},
-			filename: function (req, file, cb) {cb(null, 'empleado'+(req.body._id)+'.png')}
-        });
-    var upload = multer({ storage: storage,fileFilter:function(req,file,cb){
-        if(file.mimetype=='image/png'|| file.mimetype=='image/jpg' || file.mimetype=='image/jpeg'){cb(null, true);}else{cb(null, false);}
-	}}).single('image_producto');
-	upload(req, res, function (err) {
-        
-    
+		var file_path= req.files.picture.path;
+		console.log(file_path)
+		//separar toda la ruta para obtener solo el nombre del fichero
+		var file_split= file_path.split('\\');
+		var file_name= file_split[3];
+		//separa extensión
+		var exp_split= file_name.split('\.');
+		var file_exp= exp_split[1];
+	let peliculas= new Peliculas()      
 		//--//
-		console.log(req.body.picture)
 		//var extension = req.body.picture.name.split(".").pop();
 		//fs.rename(req.files.picture.path, "../public/imagenes/peliculas"+peliculas._id+"."+extension)
 		peliculas.name= req.body.name
-		peliculas.picture= "../public/imagenes/peliculas/empleado"+(req.body._id)+".png"
+		peliculas.picture= file_name
 		peliculas.censura= req.body.censura
 		peliculas.descripcion= req.body.descripcion
 		peliculas.fechaEstreno= req.body.fechaEstreno
@@ -47,17 +44,15 @@ function postPelicula(req, res){
 
 		peliculas.save((err, peliculaStored)=>{
 			if(err) res.status(500).send({message:`Error al enviar datos ${err}`})
-			res.status(200).send({peliculas: peliculaStored})	
+			res.status(200).render('index')
 		})
-	})
 }
 
 function updatePelicula(req, res){
 	let peliculaID= req.params.peliculaID
 	let update= new Peliculas(req.body)
 	console.log(update)
-	update._id = peliculaID 
-
+	update._id = peliculaID
 	Peliculas.findByIdAndUpdate(peliculaID, update, {new: true}, (err, peliculaUpdate) =>{
 		if(err) return res.status(500).send({message: `Error al actualizar película verifique si la película que quiere modificar existe ${err}`})
 		if(!peliculaUpdate) return res.status(500).send({message:'No retorno película actual'})
@@ -78,10 +73,39 @@ function deletePelicula(req, res){
 	})
 }
 
+function uploadImage(req, res){
+	var peliculaId= req.params.id;
+	var file_name= 'No subido';
+	console.log(req.files)
+	if(req.files){
+		var file_path= req.files.picture.path;
+		//separar toda la ruta para obtener solo el nombre del fichero
+		var file_split= file_path.split('\\');
+		var file_name= file_split[3];
+		//separa extensión
+		var exp_split= file_name.split('\.');
+		var file_exp= exp_split[1];
+		if(file_exp=="png"|| file_exp=="jpg"|| file_exp=="gif"){
+			Peliculas.findByIdAndUpdate(peliculaId, {picture:file_name}, (err, peliculaUpdate)=>{
+				if(!peliculaUpdate){
+					res.status(404).send({message: 'No se pudo actualizar la película'})
+				}else{
+					res.status(200).send({pelicula: peliculaUpdate});
+				}
+			});
+		}else{
+			res.status(200).send({message: 'Extensión no válida'})
+		}
+	}else{
+		res.status(200).send({message: 'No has subido imagen'})
+	}
+}
+
 module.exports={
 	getPelicula,
 	getPeliculas,
 	postPelicula,
 	updatePelicula,
-	deletePelicula
+	deletePelicula,
+	uploadImage
 }
