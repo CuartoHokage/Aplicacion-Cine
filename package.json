@@ -21,7 +21,8 @@
     "moment": "^2.22.2",
     "mongodb": "^2.1.4",
     "mongoose": "^4.3.7",
-    "mongoose-pagination": "^1.0.0"
+    "mongoose-pagination": "^1.0.0",
+    "os": "^0.1.1"
   },
   "devDependencies": {
     "nodemon": "^1.18.4"

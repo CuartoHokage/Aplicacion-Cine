@@ -1,4 +1,5 @@
 'use strict'
+var os= require('os');
 const fs= require('fs');
 const path= require('path');
 const Peliculas= require ('../modelos/peliculas');
@@ -23,9 +24,14 @@ function postPelicula(req, res){
 	console.log('Post /api/peliculas')
 		var file_path= req.files.picture.path;
 		console.log(req.files)
-		console.log(file_path)
+		console.log(os.platform())
 		//separar toda la ruta para obtener solo el nombre del fichero
-		var file_split= file_path.split('\/');
+		if (os.platform()=='linux'){
+			var file_split= file_path.split('\/');
+		}
+		if (os.platform()=='win32'){
+			var file_split= file_path.split('\\');
+		}
 		var file_name= file_split[3];
 		//separa extensión
 		var exp_split= file_name.split('\.');
