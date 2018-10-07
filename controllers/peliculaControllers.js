@@ -25,7 +25,7 @@ function postPelicula(req, res){
 		console.log(req.files)
 		console.log(file_path)
 		//separar toda la ruta para obtener solo el nombre del fichero
-		var file_split= file_path.split('\\');
+		var file_split= file_path.split('\/');
 		var file_name= file_split[3];
 		//separa extensión
 		var exp_split= file_name.split('\.');
