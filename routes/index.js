@@ -19,7 +19,7 @@ api.get('/video',(req, res)=>{
 	res.render('video');
 });
 api.post('/upload-image-pelicula/:id', md_upload, peliculaControllers.uploadImage);
-//Cruds para usuarios
+//Cruds para usuarioss
 /*api.post('/signup', userControllers.signup)
 api.post('/signin', userControllers.signin)
 api.get('/private', auth, (req, res)=>{
