@@ -7,7 +7,7 @@ const peliculaControllers= require('../controllers/peliculaControllers');
 const userControllers= require('../controllers/userControllers');
 //modulo para subir archivos
 var multiparty= require('connect-multiparty');
-//middleware para imagenes
+//middleware para imageness
 var md_upload= multiparty({uploadDir: './public/uploads/peliculas'});
 //Cruds para peliculas
 api.get('/pelicula', peliculaControllers.getPeliculas);
