@@ -29,7 +29,7 @@ $(document).ready(function () {
                     htmlpuro += '<tr>'
                     htmlpuro += '<td id="id_producto">' + msg[i][j]._id + '</td>'
                     htmlpuro += '<td id="name">' + msg[i][j].name + '</td>'
-                    htmlpuro += '<td>' + '<img src="/uploads/peliculas/'+msg[i][j].picture+'" width="200" height="200" class="img-circle" alt="Generic placeholder thumbnail">' + '</td>'
+                    htmlpuro += '<td>' + '<div class="flip-box"> <div class="flip-box-inner"> <div class="flip-box-front"><img alt="'+msg[i][j].name+'" src="/uploads/peliculas/'+msg[i][j].picture+'" width="200" height="200" class="img-circle" title="'+msg[i][j].name+'">  </div> <div class="flip-box-back"> <h2>'+msg[i][j].name+'</h2> <p>'+ msg[i][j].descripcion +'</p> </div> </div> </div>' + '</td>'
                     // htmlpuro += '<td>' + msg[i][j].picture + '</td>'
                     htmlpuro += '<td>' + msg[i][j].censura + '</td>'
                     htmlpuro += '<td>' + msg[i][j].descripcion + '</td>'
