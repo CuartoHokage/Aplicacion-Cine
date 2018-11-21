@@ -42,7 +42,7 @@ a {
 
 /* Style the front side (fallback if image is missing) */
 .flip-box-front {
-  background-color: #bbb;
+  background-color: rgb(15, 15, 15);
   color: black;
 }
 
